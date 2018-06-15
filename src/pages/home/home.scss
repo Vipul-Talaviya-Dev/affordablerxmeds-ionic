@@ -1,0 +1,33 @@
+page-home {
+    .avatar-item{
+        box-shadow: 0px 8px 16px 0px #c9d8ff;
+        border-radius: 4px;
+        padding: 10px 20px;
+    }
+    .all-medicine-item{
+        // box-shadow: 0px 8px 16px 0px #c9d8ff;
+        border-radius: 4px;
+        padding: 10px 20px;
+    }
+    .my-orders{
+        padding: 20px 5px;
+        img{
+            max-height: 40px;
+            max-width: 40px;
+            display: block;
+            margin: auto;
+        }
+        p{
+            color: #424242;
+        }
+        ion-col:last-child{
+            p{
+                margin-bottom: 0;
+            }
+        }
+    }
+    .swiper-slide{
+        background: white;
+        // padding: 15px;
+    }
+}

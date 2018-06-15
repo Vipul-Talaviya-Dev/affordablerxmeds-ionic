@@ -1,0 +1,51 @@
+<ion-content padding>
+  <ion-row>
+    <!--<ion-col col-3>
+      <button ion-button icon-only large (click)="back()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </button>
+    </ion-col>-->
+    <ion-col>
+      <h1><strong>Login</strong></h1>
+      <p>Please enter login credentials</p>
+    </ion-col>
+  </ion-row>
+
+  <form #loginForm="ngForm" novalidate class="m-t-20">
+    <ion-list margin-top padding-top>
+      <ion-item>
+        <ion-label stacked> Email </ion-label>
+        <ion-input name="email" type="text" #email="ngModel" [(ngModel)]="userDetails.email" spellcheck="false" autocapitalize="off"
+          required> </ion-input>
+      </ion-item>
+      <p ion-text [hidden]="email.valid || submitted == false" color="danger" padding-left>
+        Email is required
+      </p>
+      <p ion-text *ngIf="email.valid && serverError.email" color="danger" padding-left>
+        {{serverError.email[0]}}
+      </p>
+
+      <ion-item>
+        <ion-label stacked> Password </ion-label>
+        <ion-input name="password" type="password" #password="ngModel" [(ngModel)]="userDetails.password" required> </ion-input>
+      </ion-item>
+      <p ion-text [hidden]="password.valid || submitted == false" color="danger" padding-left>
+        Password is required
+      </p>
+      <p ion-text *ngIf="password.valid && serverError.password" color="danger" padding-left>
+        {{serverError.password[0]}}
+      </p>
+
+    </ion-list>
+
+    <ion-row>
+      <ion-col>
+        <button class="p0" item-center ion-button clear (click)="forgot()">Forgot Password? / </button>
+        <button class="p0" item-center ion-button clear (click)="goSignUp()"> SignUp? </button>
+        <button ion-button large type="submit" (click)="onLogin(loginForm)" block>Login</button>
+      </ion-col>
+    </ion-row>
+
+  </form>
+
+</ion-content>

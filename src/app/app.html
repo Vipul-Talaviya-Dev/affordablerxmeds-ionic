@@ -1,0 +1,75 @@
+<ion-menu [content]="content">
+  
+  <ion-content>
+    <ion-list no-lines no-margin>
+      <ion-item menuToggle (click)="loginCheck()">
+        <ion-avatar item-left>
+          <img src="https://www.shareicon.net/data/2016/08/05/806962_user_512x512.png">
+        </ion-avatar>
+        <h2>Hello Guest!</h2>
+        <p ion-text color="dark">Please login first.</p>
+      </ion-item>
+    </ion-list>
+    <hr class="hr-devider">
+    <ion-list>
+      <button menuClose ion-item (click)="goto('home')">
+        <ion-icon item-left color="primary" name="ios-home-outline"></ion-icon>
+        Home
+      </button>
+      <button menuClose ion-item (click)="goto('all')">
+        <ion-icon item-left color="primary" name="ios-list-outline"></ion-icon>
+        All Medicines
+      </button>
+    </ion-list>
+    <ion-list >
+      <ion-list-header>
+        My Orders
+      </ion-list-header>
+      <button menuClose ion-item (click)="goto('history')">
+        <ion-icon item-left color="primary" name="ios-clock-outline"></ion-icon>
+        History
+      </button>
+      <button menuClose ion-item (click)="goto('reward')">
+        <ion-icon item-left color="primary" name="ios-trophy-outline"></ion-icon>
+        Reward Points
+      </button>
+      <button menuClose ion-item (click)="goto('return')">
+        <ion-icon item-left color="primary" name="ios-archive-outline"></ion-icon>
+        Returns
+      </button>
+      <button menuClose ion-item (click)="goto('transaction')">
+        <ion-icon item-left color="primary" name="ios-swap-outline"></ion-icon>
+        Transaction
+      </button>
+      <button menuClose ion-item (click)="goto('payment')">
+        <ion-icon item-left color="primary" name="ios-card-outline"></ion-icon>
+        Payment Profile
+      </button>
+    </ion-list>
+    <ion-list>
+      <ion-list-header>
+        My Account
+      </ion-list-header>
+      <button menuClose ion-item (click)="goto('edit')">
+        <ion-icon item-left color="primary" name="ios-person-outline"></ion-icon>
+        Edit Account
+      </button>
+      <button menuClose ion-item (click)="goto('forgotPassword')">
+        <ion-icon item-left color="primary" name="ios-lock-outline"></ion-icon>
+        Change Password
+      </button>
+      <button menuClose ion-item (click)="goto('address')">
+        <ion-icon item-left color="primary" name="ios-navigate-outline"></ion-icon>
+        Address Book
+      </button>
+      <button menuClose ion-item (click)="goto('wishlist')">
+        <ion-icon item-left color="primary" name="ios-heart-outline"></ion-icon>
+        Wish List
+      </button>
+    </ion-list>
+  </ion-content>
+  
+</ion-menu>
+
+<!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

@@ -1,0 +1,192 @@
+<!-- <ion-header>
+  
+  <ion-navbar>
+    <ion-title>signup</ion-title>
+  </ion-navbar>
+  
+</ion-header> -->
+
+<ion-content padding>
+
+  <ion-row class="custom-header">
+    <ion-col col-3>
+      <button ion-button icon-only large (click)="back()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </button>
+    </ion-col>
+    <ion-col>
+      <h1><strong>Sign Up</strong></h1>
+      <p>Enter details to create account</p>
+    </ion-col>
+  </ion-row>
+  <form #signupForm="ngForm" novalidate class="m-t-20">
+
+    <ion-list margin-bottom>
+      <ion-item>
+        <ion-label stacked>First name</ion-label>
+        <ion-input type="text" name="firstName" #firstName="ngModel" [(ngModel)]="signupDetails.firstName" required></ion-input>
+      </ion-item>
+      <p ion-text [hidden]="firstName.valid || submitted == false" color="danger" padding-left>
+        FirstName is required
+      </p>
+      <p ion-text *ngIf="firstName.valid && serverError.firstName" color="danger" padding-left>
+        {{serverError.firstName[0]}}
+      </p>
+
+      <ion-item>
+        <ion-label stacked>Last name</ion-label>
+        <ion-input type="text" name="lastName" #lastName="ngModel" [(ngModel)]="signupDetails.lastName" required></ion-input>
+      </ion-item>
+      <p ion-text [hidden]="lastName.valid || submitted == false" color="danger" padding-left>
+        LastName is required
+      </p>
+      <p ion-text *ngIf="lastName.valid && serverError.lastName" color="danger" padding-left>
+        {{serverError.lastName[0]}}
+      </p>
+
+      <ion-item>
+        <ion-label stacked>Email</ion-label>
+        <ion-input type="text" name="email" #email="ngModel" [(ngModel)]="signupDetails.email" required></ion-input>
+      </ion-item>
+      <p ion-text [hidden]="email.valid || submitted == false" color="danger" padding-left>
+        Email is required
+      </p>
+      <p ion-text *ngIf="email.valid && serverError.email" color="danger" padding-left>
+        {{serverError.email[0]}}
+      </p>
+
+      <ion-item>
+        <ion-label stacked>Telephone</ion-label>
+        <ion-input type="number" name="telephone" #telephone="ngModel" [(ngModel)]="signupDetails.telephone" required></ion-input>
+      </ion-item>
+      <p ion-text [hidden]="telephone.valid || submitted == false" color="danger" padding-left>
+        Telephone is required
+      </p>
+      <p ion-text *ngIf="telephone.valid && serverError.telephone" color="danger" padding-left>
+        {{serverError.telephone[0]}}
+      </p>
+
+      <ion-item>
+        <ion-label stacked>Address 1</ion-label>
+        <ion-input type="text" name="address1" #address1="ngModel" [(ngModel)]="signupDetails.address1" required></ion-input>
+      </ion-item>
+      <p ion-text [hidden]="address1.valid || submitted == false" color="danger" padding-left>
+        Email is required
+      </p>
+      <p ion-text *ngIf="address1.valid && serverError.address1" color="danger" padding-left>
+        {{serverError.address1[0]}}
+      </p>
+
+      <ion-item>
+        <ion-label stacked>Address 2</ion-label>
+        <ion-input type="text" name="address2" [(ngModel)]="signupDetails.address2"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>City</ion-label>
+        <ion-input type="text" name="city" #city="ngModel" [(ngModel)]="signupDetails.city" required></ion-input>
+      </ion-item>
+      <p ion-text [hidden]="city.valid || submitted == false" color="danger" padding-left>
+        City is required
+      </p>
+      <p ion-text *ngIf="city.valid && serverError.city" color="danger" padding-left>
+        {{serverError.city[0]}}
+      </p>
+
+      <ion-item>
+        <ion-label stacked>Pin Code</ion-label>
+        <ion-input type="number" name="postCode" #postCode="ngModel" [(ngModel)]="signupDetails.postCode" required></ion-input>
+      </ion-item>
+      <p ion-text [hidden]="postCode.valid || submitted == false" color="danger" padding-left>
+        PostCode is required
+      </p>
+      <p ion-text *ngIf="postCode.valid && serverError.postCode" color="danger" padding-left>
+        {{serverError.postCode[0]}}
+      </p>
+
+      <ion-item>
+        <ion-label stacked>Country</ion-label>
+        <ion-select name="countryId" #countryId="ngModel" [(ngModel)]="signupDetails.countryId" (ionChange)="onCountryChange($event)"
+          required>
+          <ion-option [value]="country" *ngFor="let country of countrys">{{country.name}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <p ion-text [hidden]="countryId.valid || submitted == false" color="danger" padding-left>
+        Country is required
+      </p>
+      <p ion-text *ngIf="countryId.valid && serverError.countryId" color="danger" padding-left>
+        {{serverError.countryId[0]}}
+      </p>
+
+      <ion-item>
+        <ion-label stacked>State</ion-label>
+        <ion-select name="stateId" #stateId="ngModel" [(ngModel)]="signupDetails.stateId" [disabled]="states.length <= 0" required>
+          <ion-option [value]="state" *ngFor="let state of states">{{state.name}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <p ion-text [hidden]="stateId.valid || submitted == false" color="danger" padding-left>
+        State is required
+      </p>
+      <p ion-text *ngIf="stateId.valid && serverError.stateId" color="danger" padding-left>
+        {{serverError.stateId[0]}}
+      </p>
+
+    </ion-list>
+    <ion-list-header>
+      Set Password
+    </ion-list-header>
+    <ion-item>
+      <ion-label stacked>Password</ion-label>
+      <ion-input type="password" name="password" #password="ngModel" [(ngModel)]="signupDetails.password" required></ion-input>
+    </ion-item>
+    <p ion-text [hidden]="password.valid || submitted == false" color="danger" padding-left>
+      Password is required
+    </p>
+    <p ion-text *ngIf="password.valid && serverError.password" color="danger" padding-left>
+      {{serverError.password[0]}}
+    </p>
+
+    <ion-item>
+      <ion-label stacked>Re-enter Password</ion-label>
+      <ion-input type="password" name="confirmPassword" #confirmPassword="ngModel" [(ngModel)]="signupDetails.confirmPassword"
+        required></ion-input>
+    </ion-item>
+    <p ion-text [hidden]="confirmPassword.valid || submitted == false" color="danger" padding-left>
+      ConfirmPassword is required
+    </p>
+    <p ion-text *ngIf="confirmPassword.valid && serverError.confirmPassword" color="danger" padding-left>
+      {{serverError.confirmPassword[0]}}
+    </p>
+
+    <ion-item>
+      <ion-label stcked>Subscribe Newsletter</ion-label>
+      <ion-toggle checked="true" name="newsLetter" [(ngModel)]="signupDetails.newsLetter"></ion-toggle>
+    </ion-item>
+
+    <div padding-vertical>
+      <ion-card margin-top [color]="color">
+        <ion-card-header>
+          Terms & Conditions
+        </ion-card-header>
+        <ion-card-content>
+          <ion-list text-wrap no-lines>
+            <ion-item [color]="color">
+              <ion-label>By checking the box, I agree that I have read and understand the above disclosure and I approve my ordered
+                products be shipped from the above mentioned location.</ion-label>
+              <ion-checkbox color="dark" name="terms1" [(ngModel)]="terms1" (ionChange)="checkTerms()"></ion-checkbox>
+            </ion-item>
+            <ion-item [color]="color">
+              <ion-label>I have read and agree to the Privacy Policy.</ion-label>
+              <ion-checkbox color="dark" name="terms2" [(ngModel)]="terms2" (ionChange)="checkTerms()"></ion-checkbox>
+            </ion-item>
+          </ion-list>
+          <!-- <button ion-button block outline color="light">
+          Privacy Policy
+        </button> -->
+        </ion-card-content>
+      </ion-card>
+    </div>
+
+    <button type="submit" (click)="onSignup(signupForm)" ion-button large block>Submit</button>
+  </form>
+</ion-content>

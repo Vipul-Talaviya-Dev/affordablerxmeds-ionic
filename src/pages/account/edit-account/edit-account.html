@@ -1,0 +1,73 @@
+<!--
+  Generated template for the EditAccountPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Personal Details</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <form #userProfileForm="ngForm" novalidate class="m-t-20">
+    <ion-list>
+      <ion-item>
+        <ion-label stacked>First Name</ion-label>
+        <ion-input type="text" name="firstName" #firstName="ngModel" [(ngModel)]="userProfile.firstName" required></ion-input>
+      </ion-item>
+      <p ion-text [hidden]="firstName.valid || submitted == false" color="danger" padding-left>
+        FirstName is required
+      </p>
+      <p ion-text *ngIf="firstName.valid && serverError.firstName" color="danger" padding-left>
+        {{serverError.firstName[0]}}
+      </p>
+
+      <ion-item>
+        <ion-label stacked>Last Name</ion-label>
+        <ion-input type="text" name="lastName" #lastName="ngModel" [(ngModel)]="userProfile.lastName" required></ion-input>
+      </ion-item>
+      <p ion-text [hidden]="lastName.valid || submitted == false" color="danger" padding-left>
+        LastName is required
+      </p>
+      <p ion-text *ngIf="lastName.valid && serverError.lastName" color="danger" padding-left>
+        {{serverError.lastName[0]}}
+      </p>
+
+      <ion-item>
+        <ion-label stacked>E-mail</ion-label>
+        <ion-input type="email" name="email" #email="ngModel" [(ngModel)]="userProfile.email" required></ion-input>
+      </ion-item>
+      <p ion-text [hidden]="email.valid || submitted == false" color="danger" padding-left>
+        Email is required
+      </p>
+      <p ion-text *ngIf="email.valid && serverError.email" color="danger" padding-left>
+        {{serverError.email[0]}}
+      </p>
+
+      <ion-item>
+        <ion-label stacked>Contact</ion-label>
+        <ion-input type="number" name="telephone" #telephone="ngModel" [(ngModel)]="userProfile.telephone" required></ion-input>
+      </ion-item>
+      <p ion-text [hidden]="telephone.valid || submitted == false" color="danger" padding-left>
+        Telephone is required
+      </p>
+      <p ion-text *ngIf="telephone.valid && serverError.telephone" color="danger" padding-left>
+        {{serverError.telephone[0]}}
+      </p>
+
+    </ion-list>
+
+    <ion-row>
+      <ion-col padding>
+        <button type="submit" (click)="updateUserProfile(userProfileForm)" ion-button block large>
+        Update
+      </button>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>

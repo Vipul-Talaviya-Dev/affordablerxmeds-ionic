@@ -1,0 +1,33 @@
+<!-- <ion-header>
+
+  <ion-navbar>
+    <ion-title>Select Brand</ion-title>
+  </ion-navbar>
+
+</ion-header> -->
+
+
+<ion-content >
+  <ion-row padding class="custom-header">
+    <ion-col col-3>
+      <button ion-button icon-only large (click)="back()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </button>
+    </ion-col>
+    <ion-col>
+      <h1><strong>Select Brand</strong></h1>
+      <p>Medicines on next step</p>
+    </ion-col>
+  </ion-row>
+
+  <ion-list padding-left>
+    <!-- <ion-list-header>
+      Brands with starting letter A
+    </ion-list-header> -->
+    <ion-item (click)="medicineResult(brandList)" *ngFor="let brandList of brandLists">
+      <h2>{{brandList.name}}</h2>
+      <ion-icon item-right name="ios-arrow-forward" color="light"></ion-icon>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

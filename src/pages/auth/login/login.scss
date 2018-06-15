@@ -1,0 +1,14 @@
+page-login {
+    ion-content{
+        background-image: url(/assets/imgs/login-bg.jpg);
+        background-position: top;
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+    .login-box{
+        padding-top: 25vh;
+        button{
+            margin-top: 10vh;
+        }
+    }
+}

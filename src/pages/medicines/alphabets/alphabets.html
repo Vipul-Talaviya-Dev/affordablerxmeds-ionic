@@ -1,0 +1,29 @@
+<ion-content padding>
+  
+  <ion-row style="position: absolute;transform: translateZ(0);z-index: 99;" class="custom-header">
+    <!-- <ion-col >
+      <button ion-button icon-only clear (click)="back()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </button>
+    </ion-col> -->
+    
+    <ion-col col-3>
+      <button ion-button icon-only large (click)="back()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </button>
+    </ion-col>
+    <ion-col>
+      <h1><strong>Choose Letter</strong></h1>
+      <p>Starting character of medicine</p>
+    </ion-col>
+  </ion-row>
+  
+  <ion-slides>
+    <ion-slide >
+      <button ion-button large outline *ngFor="let a of alpha" (click)="brand(a)">
+        {{a}}
+      </button>
+    </ion-slide>
+    
+  </ion-slides>
+</ion-content>

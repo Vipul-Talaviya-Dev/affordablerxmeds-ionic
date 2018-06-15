@@ -1,0 +1,32 @@
+<!-- <ion-header>
+  
+  <ion-navbar>
+    <ion-title>medicine-results</ion-title>
+  </ion-navbar>
+  
+</ion-header> -->
+
+
+<ion-content >
+  <ion-row padding class="custom-header">
+    <ion-col col-3>
+      <button ion-button icon-only large (click)="back()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </button>
+    </ion-col>
+    <ion-col>
+      <h1><strong> {{categoryName}} </strong></h1>
+      <!--<p>Results</p>-->
+    </ion-col>
+  </ion-row>
+  
+  <ion-list padding-left>
+    <ion-item (click)="medicineDetail(productList)" *ngFor="let productList of productLists">
+      <h2>{{productList.name}}</h2>
+      <!--<p>- (GENERIC EQUIVALENT OF Abilify )</p>-->
+      <button ion-button item-right icon-only clear color="secondary">
+        <ion-icon name="heart-outline"></ion-icon>
+      </button>
+    </ion-item>
+  </ion-list>
+</ion-content>
