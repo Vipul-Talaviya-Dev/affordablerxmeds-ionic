@@ -20,9 +20,20 @@ export class AccountService {
     return this._apiService.request('get', apiUrl, {}, {}, true);
   }
 
-  // public countrys(): Observable<any> {
-  //   let apiUrl = 'countries';
-  //   return this._apiService.request('get', apiUrl, {}, {}, false);
-  // }
+  public getAddressWithId(id: any): Observable<any> {
+    let apiUrl = 'address/' + id + '/edit';
+    return this._apiService.request('get', apiUrl, {}, {}, true);
+  }
+
+  public updateAddress(data: any, id: any): Observable<any> {
+    let apiUrl = 'address/' + id + '/update';
+    return this._apiService.request('post', apiUrl, data, {}, true);
+  }
+
+ public deleteAddress(id: any): Observable<any> {
+    let apiUrl = 'address/' + id + '/delete';
+    return this._apiService.request('get', apiUrl, {}, {}, true);
+  }
+
 
 }

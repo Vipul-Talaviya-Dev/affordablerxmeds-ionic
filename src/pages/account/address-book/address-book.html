@@ -5,7 +5,7 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  
+
   <ion-navbar>
     <ion-title>Address Book</ion-title>
     <ion-buttons end>
@@ -14,20 +14,19 @@
       </button>
     </ion-buttons>
   </ion-navbar>
-  
+
 </ion-header>
 
 
 <ion-content>
   <ion-card class="custom-card" *ngFor="let address of userAddress; let i=index;">
     <ion-card-header>
-      #{{i + 1}} <ion-badge color="success">Default</ion-badge>
+      #{{i + 1}}
+      <ion-badge color="success">Default</ion-badge>
     </ion-card-header>
     <ion-card-content>
-      {{address.firstName}} {{address.lastName}} <br>
-      {{address.address1}}{{address.address2? ', ' + address.address2: ''}} <br>
-      {{address.city}}, {{address.state}} {{address.postCode}} <br>
-      {{address.country}}.
+      {{address.firstName}} {{address.lastName}} <br> {{address.address1}}{{address.address2? ', ' + address.address2: ''}}
+      <br> {{address.city}}, {{address.state}} {{address.postCode}} <br> {{address.country}}.
     </ion-card-content>
     <ion-list-header no-margin>
       <button ion-button icon-left item-right (click)="editAddress(address.id)">
@@ -39,6 +38,12 @@
         Delete
       </button>
     </ion-list-header>
+  </ion-card>
+
+  <ion-card class="custom-card" *ngIf="userAddress.length <= 0">
+    <ion-card-header item-center>
+      No found Data
+    </ion-card-header>
   </ion-card>
   <!--<ion-card class="custom-card">
     <ion-card-header>

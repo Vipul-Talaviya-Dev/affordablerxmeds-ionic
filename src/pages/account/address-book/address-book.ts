@@ -43,12 +43,22 @@ export class AddressBookPage {
   }
 
   editAddress(id: any) {
-    let modal = this.modalCtrl.create('AddAddressPage', {addressId: id});
+    let modal = this.modalCtrl.create('AddAddressPage', { addressId: id });
     modal.present();
   }
 
   deleteAddress(id: any) {
-
+    this.accountService.deleteAddress(id).subscribe((res) => {
+      // console.log(res);
+      if (res.status) {
+        this.configService.showToast(res.success);
+        this.loadAddress();
+      } else {
+        this.configService.showToast(res.error);
+      }
+    }, (error) => {
+      this.configService.showToast('something want to wrong address');
+    })
   }
 
 }

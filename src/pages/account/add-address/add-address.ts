@@ -66,10 +66,11 @@ export class AddAddressPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController,
     public userService: UserService, public configService: ConfigService,
-    public accountService: AccountService ) {
-      if(this.navParams.data && this.navParams.data.id) {
-        this.userId = this.navParams.data.id;
-      }
+    public accountService: AccountService) {
+    if (this.navParams.data && this.navParams.data.addressId) {
+      this.userId = this.navParams.data.addressId;
+      this.getAddressWithId();
+    }
   }
 
   close() {
@@ -101,24 +102,58 @@ export class AddAddressPage {
     this.loadStates(event);
   }
 
-  loadStates(data: any) {
+  loadStates(data: any, stateId?: any) {
     let param = {
       id: data.id
     }
     this.userService.states(param).subscribe((res) => {
-      console.log(res);
+      // console.log(res);
       if (res.status) {
         this.states = res.states || [];
+        if (stateId) {
+          this.addressDetails.stateId = this.getObjUsingId(this.states, stateId);
+        }
       }
     }, (error) => {
       this.configService.showToast('something want to wrong state');
     })
   }
 
+  getAddressWithId() {
+    this.accountService.getAddressWithId(this.userId).subscribe((res) => {
+      if (res.status) {
+        let data = res.address || {};
+        this.addressDetails = data;
+        let countryId = {
+          id: data.countryId
+        }
+
+        this.loadStates(countryId, data.stateId);
+        this.addressDetails.countryId = this.getObjUsingId(this.countrys, data.countryId);
+      } else {
+        this.navCtrl.setRoot(AddressBookPage);
+        this.configService.showToast(res.error);
+      }
+    }, (error) => {
+      this.configService.showToast('something want to wrong getAddressWithId');
+    })
+  }
+
+  getObjUsingId(arr: any, id: any) {
+    let ret = {};
+    for (let i = 0; i < arr.length; i++) {
+      let obj = arr[i];
+      if (obj.id === id) {
+        ret = obj;
+      }
+    }
+    return ret;
+
+  }
+
   addAddressDetails(form: NgForm) {
     // console.log('form======', form);
     // console.log('this.signupDetails=====', this.signupDetails);
-    console.log('this.addressDetails==', this.addressDetails)
     this.submitted = true;
     this.serverError = {};
     if (!form.valid) {
@@ -134,14 +169,39 @@ export class AddAddressPage {
       }
     }
 
-    this.accountService.addAddress(this.addressDetails).subscribe((res) => {
-      console.log(res);
+    if (this.userId) {
+      this.updateAddress(this.addressDetails);
+    } else {
+      this.saveAddress(this.addressDetails);
+    }
+
+  }
+
+
+  saveAddress(data: any) {
+    this.accountService.addAddress(data).subscribe((res) => {
       if (res.status) {
         this.configService.showToast(res.success);
         this.navCtrl.setRoot(AddressBookPage);
-     } else {
-       this.configService.showToast(res.error);
-     }
+      } else {
+        this.configService.showToast(res.error);
+      }
+    }, (error) => {
+      if (error._body) {
+        let errObj = JSON.parse(error._body);
+        this.serverError = errObj.errors;
+      }
+    })
+  }
+
+  updateAddress(data: any) {
+    this.accountService.updateAddress(data, this.userId).subscribe((res) => {
+      if (!res.status) {
+        this.configService.showToast(res.success);
+        this.navCtrl.setRoot(AddressBookPage);
+      } else {
+        this.configService.showToast(res.error);
+      }
     }, (error) => {
       if (error._body) {
         let errObj = JSON.parse(error._body);
