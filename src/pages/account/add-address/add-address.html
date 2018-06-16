@@ -98,7 +98,7 @@
         <ion-label stacked>Country</ion-label>
         <ion-select name="countryId" #countryId="ngModel" [(ngModel)]="addressDetails.countryId" (ionChange)="onCountryChange($event)"
           required>
-          <ion-option [value]="country" *ngFor="let country of countrys">{{country.name}}</ion-option>
+          <ion-option [value]="country.id" *ngFor="let country of countrys">{{country.name}}</ion-option>
         </ion-select>
       </ion-item>
       <p ion-text [hidden]="countryId.valid || submitted == false" color="danger" padding-left>
@@ -111,7 +111,7 @@
       <ion-item>
         <ion-label stacked>Region/State</ion-label>
         <ion-select name="stateId" #stateId="ngModel" [(ngModel)]="addressDetails.stateId" [disabled]="states.length <= 0" required>
-          <ion-option [value]="state" *ngFor="let state of states">{{state.name}}</ion-option>
+          <ion-option [value]="state.id" *ngFor="let state of states">{{state.name}}</ion-option>
         </ion-select>
       </ion-item>
       <p ion-text [hidden]="stateId.valid || submitted == false" color="danger" padding-left>

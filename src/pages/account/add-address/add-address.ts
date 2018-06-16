@@ -69,7 +69,6 @@ export class AddAddressPage {
     public accountService: AccountService) {
     if (this.navParams.data && this.navParams.data.addressId) {
       this.userId = this.navParams.data.addressId;
-      this.getAddressWithId();
     }
   }
 
@@ -87,6 +86,9 @@ export class AddAddressPage {
       // console.log(res);
       if (res.status) {
         this.countrys = res.countries || [];
+        if (this.userId) {
+          this.getAddressWithId();
+        }
       }
     }, (error) => {
       this.configService.showToast('something want to wrong country');
@@ -95,24 +97,26 @@ export class AddAddressPage {
 
 
   onCountryChange(event) {
-    // console.log('onCountryChange====', event);
+    console.log('onCountryChange====', event);
     if (!event) {
       return;
     }
     this.loadStates(event);
   }
 
-  loadStates(data: any, stateId?: any) {
+  loadStates(id: any, stateId?: any) {
     let param = {
-      id: data.id
+      id: id
     }
     this.userService.states(param).subscribe((res) => {
       // console.log(res);
       if (res.status) {
         this.states = res.states || [];
-        if (stateId) {
-          this.addressDetails.stateId = this.getObjUsingId(this.states, stateId);
-        }
+        console.log('stateId===', stateId);
+        // if (stateId) {
+        //   this.addressDetails.stateId = stateId;
+
+        // }
       }
     }, (error) => {
       this.configService.showToast('something want to wrong state');
@@ -124,12 +128,8 @@ export class AddAddressPage {
       if (res.status) {
         let data = res.address || {};
         this.addressDetails = data;
-        let countryId = {
-          id: data.countryId
-        }
-
-        this.loadStates(countryId, data.stateId);
-        this.addressDetails.countryId = this.getObjUsingId(this.countrys, data.countryId);
+        this.loadStates(data.countryId, data.stateId);
+        console.log('this.addressDetails=====', this.addressDetails);
       } else {
         this.navCtrl.setRoot(AddressBookPage);
         this.configService.showToast(res.error);
@@ -139,18 +139,6 @@ export class AddAddressPage {
     })
   }
 
-  getObjUsingId(arr: any, id: any) {
-    let ret = {};
-    for (let i = 0; i < arr.length; i++) {
-      let obj = arr[i];
-      if (obj.id === id) {
-        ret = obj;
-      }
-    }
-    return ret;
-
-  }
-
   addAddressDetails(form: NgForm) {
     // console.log('form======', form);
     // console.log('this.signupDetails=====', this.signupDetails);
@@ -158,15 +146,6 @@ export class AddAddressPage {
     this.serverError = {};
     if (!form.valid) {
       return;
-    }
-
-    for (let i in this.addressDetails) {
-      let value = this.addressDetails[i];
-      if (i === 'countryId') {
-        this.addressDetails.countryId = this.addressDetails[i].id;
-      } else if (i === 'stateId') {
-        this.addressDetails.stateId = this.addressDetails[i].id;
-      }
     }
 
     if (this.userId) {
@@ -196,7 +175,7 @@ export class AddAddressPage {
 
   updateAddress(data: any) {
     this.accountService.updateAddress(data, this.userId).subscribe((res) => {
-      if (!res.status) {
+      if (res.status) {
         this.configService.showToast(res.success);
         this.navCtrl.setRoot(AddressBookPage);
       } else {
